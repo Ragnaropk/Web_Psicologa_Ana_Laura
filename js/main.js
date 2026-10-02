@@ -33,6 +33,8 @@
     moneda: S.consulta && S.consulta.moneda,
     duracion: S.consulta && S.consulta.duracionMin,
     modalidades: S.consulta && S.consulta.modalidades.join(" u "),
+    googleRating: S.google && S.google.calificacion,
+    googleReviews: S.google && S.google.resenas,
   };
   $$("[data-site]").forEach((el) => {
     const v = fill[el.dataset.site];
@@ -155,7 +157,10 @@
         (q) => `
         <figure class="quote reveal is-visible">
           <blockquote>${escapeHTML(q.texto)}</blockquote>
-          <figcaption>— ${escapeHTML(q.autor)}</figcaption>
+          <figcaption>
+            <span class="quote__stars" aria-label="5 estrellas">★★★★★</span>
+            <span><strong>${escapeHTML(q.autor)}</strong>${q.detalle ? ` · ${escapeHTML(q.detalle)}` : ""}</span>
+          </figcaption>
         </figure>`
       )
       .join("");
@@ -187,6 +192,13 @@
     $("#socials").innerHTML = socials
       .map(([name, url]) => `<a href="${escapeHTML(url)}" target="_blank" rel="noopener">${name}</a>`)
       .join("");
+
+    const fullAddress = [S.direccion, S.ciudad].filter(Boolean).join(", ");
+    $("#footer-address").textContent = fullAddress;
+    $("#footer-address").hidden = !fullAddress;
+    const rating = $("#rating");
+    if (S.google && S.googleMapsUrl) rating.href = S.googleMapsUrl;
+    else rating.hidden = true;
 
     if (S.googleMapsEmbed) {
       const map = $("#map");

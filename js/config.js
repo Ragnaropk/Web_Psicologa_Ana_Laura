@@ -14,18 +14,22 @@ window.SITE = {
   cedula: "", // Ej. "Céd. Prof. 1234567" — se muestra en el pie si se llena
 
   // WhatsApp en formato internacional, solo números (52 = México).
-  whatsapp: "520000000000",
-  telefonoVisible: "", // Ej. "55 1234 5678"
+  whatsapp: "525637799686",
+  telefonoVisible: "56 3779 9686",
   email: "", // Ej. "contacto@analaura.mx"
   instagram: "", // URL completa
   facebook: "", // URL completa
 
   // --- Ubicación -----------------------------------------------------------
-  direccion: "Dirección del consultorio (pendiente)",
-  ciudad: "",
-  googleMapsUrl: "", // Enlace "Compartir" de Google Maps
-  // Enlace "Insertar mapa" de Google Maps (solo el src del iframe):
-  googleMapsEmbed: "",
+  direccion: "Tzenzontle 9, Las Arboledas",
+  ciudad: "52950 Cd. López Mateos, Atizapán de Zaragoza, Edo. Méx.",
+  googleMapsUrl: "https://maps.app.goo.gl/tatccwMxJ53QBbca7",
+  // Mapa insertado (src del iframe):
+  googleMapsEmbed:
+    "https://maps.google.com/maps?q=19.5593456,-99.2171605&z=16&hl=es&output=embed",
+
+  // Calificación en Google (actualizar de vez en cuando):
+  google: { calificacion: "5,0", resenas: 64 },
 
   // --- Consulta individual -------------------------------------------------
   consulta: {
@@ -100,24 +104,56 @@ window.SITE = {
   ],
 
   // --- Testimonios ---------------------------------------------------------
-  // IMPORTANTE: reemplazar por reseñas reales (p. ej. las de Google Maps),
-  // con permiso de quien las escribió. Si la lista queda vacía, la sección
-  // se oculta sola.
+  // Reseñas reales de su ficha de Google Maps (nombre + inicial del apellido).
+  // "detalle" es opcional. Si la lista queda vacía, la sección se oculta sola.
   testimonios: [
     {
       texto:
-        "Texto de ejemplo — aquí irá una reseña real de Google Maps. Me sentí escuchada desde la primera sesión, sin juicios.",
-      autor: "Paciente (ejemplo)",
+        "Estoy muy agradecida con la psicóloga Ana Laura por todo el apoyo que me ha dado. Desde la primera sesión me hizo sentir en confianza y nunca me he sentido juzgada al hablar con ella.",
+      autor: "Diana C.",
     },
     {
       texto:
-        "Texto de ejemplo — aquí irá una reseña real. El taller me ayudó a entender cosas de mí que llevaba años cargando.",
-      autor: "Asistente a taller (ejemplo)",
+        "La terapia que he recibido me ha ayudado a verme de manera distinta y sanar poco a poco. Es muy buena en su trabajo y lo hace con mucha pasión y entrega. 100% recomendable.",
+      autor: "Alejandra R.",
     },
     {
       texto:
-        "Texto de ejemplo — aquí irá una reseña real. Las sesiones en línea funcionaron muy bien para mí.",
-      autor: "Paciente en línea (ejemplo)",
+        "Increíble atención profesional y empática, el enfoque humanista de la Dra. Ana es de mucha ayuda.",
+      autor: "Ayrton F.",
+    },
+    {
+      texto:
+        "Extraordinaria psicóloga, principios y ética profesional intachable. Mi admiración y reconocimiento total. Tomo mis terapias desde la ciudad de Acapulco y 10/10.",
+      autor: "Azucena C.",
+      detalle: "Online desde Acapulco",
+    },
+    {
+      texto:
+        "Excelente psicóloga, he tomado las terapias presencial y puedo decir que me han ayudado demasiado, tiene calidez humana.",
+      autor: "Berenice R.",
+      detalle: "Presencial",
+    },
+    {
+      texto:
+        "100% profesional, amable, empática y con alternativas que me han ayudado a ir progresando poco a poco. Los cambios se han notado y es algo que agradezco enormemente.",
+      autor: "Alexis R.",
+    },
+    {
+      texto:
+        "Eres mi primer acercamiento a la psicología y puedo decir que tomé la decisión correcta al escogerte como el inicio de mi mejora personal.",
+      autor: "Kevin F.",
+    },
+    {
+      texto:
+        "Excelente terapeuta, muy atenta. No importa la distancia y no hay pretexto para tu salud mental: por medio de videollamada se puede. Saludos desde el Caribe, 100% recomendada.",
+      autor: "Tere",
+      detalle: "Online desde el Caribe",
+    },
+    {
+      texto:
+        "Es muy profesional y paciente al escuchar. Llevo con ella más de 3 meses y veo avances en lo personal, en mis emociones y en mi vida. ¡La recomiendo al 100%!",
+      autor: "Irving B.",
     },
   ],
 };

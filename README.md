@@ -36,12 +36,17 @@ Casi todo se cambia en **`js/config.js`**:
 
 La persona elige día, hora y modalidad; al enviar, se abre WhatsApp con un mensaje ya escrito para Ana Laura, que confirma la cita manualmente. La agenda **no sabe** qué horarios ya están ocupados: para bloqueo automático se puede conectar más adelante Cal.com, Calendly o Google Calendar.
 
+## Publicar
+
+Su ficha de Google Maps ya enlaza a `anapsicologa.github.io`. Para que esa dirección muestre este sitio, crear en la cuenta de GitHub **anapsicologa** un repositorio llamado `anapsicologa.github.io` con estos archivos (o activar GitHub Pages en este repositorio y actualizar el enlace en Google Maps).
+
 ## Pendientes
 
-- [ ] Número de WhatsApp real
-- [ ] Dirección y mapa (Google Maps)
+- [x] Número de WhatsApp real
+- [x] Dirección y mapa (Google Maps)
+- [x] Reseñas de Google (3 destacadas + calificación 5,0 / 64 reseñas)
 - [ ] Subir `img/logo.png` y `img/ana-laura.jpg`
 - [ ] Formación académica y cédula profesional
 - [ ] Fechas y precios reales de talleres
-- [ ] Testimonios reales (con permiso)
+- [ ] Más testimonios (opcional)
 - [ ] Formas de pago
