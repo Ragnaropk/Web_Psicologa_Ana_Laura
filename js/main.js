@@ -209,15 +209,22 @@
   })();
 
   /* ---------- Agenda ---------- */
+  // Dos modos:
+  //  • Con S.agendaApi (Google Apps Script): horarios reales del calendario,
+  //    la reserva aparta el horario y se envían correos a ambas partes.
+  //  • Sin él: horario fijo de config.js y la solicitud se envía por WhatsApp.
   (function booking() {
     const A = S.agenda || {};
-    const horario = A.horario || {};
-    const blocked = new Set(A.diasBloqueados || []);
+    const API = (S.agendaApi || "").trim();
+    let online = Boolean(API);
+    let remoteSlots = null; // { "AAAA-MM-DD": ["10:00", …] }
+
     const today = parseISO(isoDate(new Date()));
     const first = new Date(today);
-    first.setDate(first.getDate() + (A.diasAnticipacionMin ?? 1));
+    first.setDate(first.getDate() + (online ? 0 : A.diasAnticipacionMin ?? 1));
     const last = new Date(today);
     last.setDate(last.getDate() + (A.diasVisibles ?? 45));
+    const blocked = new Set(A.diasBloqueados || []);
 
     const grid = $("#cal-grid");
     const title = $("#cal-title");
@@ -226,17 +233,32 @@
     const slotsEl = $("#slots");
     const slotsTitle = $("#slots-title");
     const form = $("#booking-form");
+    const submit = $("#booking-submit");
     const msg = $("#form-msg");
     const summary = $("#summary");
+    const booked = $("#booked");
 
     let view = new Date(first.getFullYear(), first.getMonth(), 1);
     let selDate = null;
     let selTime = null;
+    let loading = online;
 
     const slotsFor = (d) => {
+      if (online) return (remoteSlots && remoteSlots[isoDate(d)]) || [];
       if (d < first || d > last || blocked.has(isoDate(d))) return [];
-      return horario[d.getDay()] || [];
+      return (A.horario || {})[d.getDay()] || [];
     };
+
+    const setMsg = (text, ok) => {
+      msg.textContent = text || "";
+      msg.classList.toggle("is-ok", Boolean(ok));
+    };
+
+    function applyMode() {
+      submit.textContent = online ? "Reservar mi cita" : "Solicitar cita por WhatsApp";
+      form.email.required = online;
+      $("#email-hint").textContent = online ? "(para enviarte la confirmación)" : "(opcional)";
+    }
 
     // Modalidades
     const mods = (S.consulta && S.consulta.modalidades) || ["Presencial"];
@@ -255,6 +277,7 @@
       const m = view.getMonth();
       const t = view.toLocaleDateString("es-MX", { month: "long", year: "numeric" });
       title.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+      grid.classList.toggle("is-loading", loading);
 
       const offset = (new Date(y, m, 1).getDay() + 6) % 7; // semana inicia en lunes
       const days = new Date(y, m + 1, 0).getDate();
@@ -262,7 +285,7 @@
       for (let i = 0; i < offset; i++) html += "<span></span>";
       for (let d = 1; d <= days; d++) {
         const date = new Date(y, m, d);
-        const free = slotsFor(date).length > 0;
+        const free = !loading && slotsFor(date).length > 0;
         const cls = [
           "cal__day",
           free && "is-free",
@@ -281,6 +304,11 @@
     }
 
     function renderSlots() {
+      if (loading) {
+        slotsTitle.textContent = "Cargando horarios…";
+        slotsEl.innerHTML = `<p class="muted">Consultando la agenda en tiempo real.</p>`;
+        return;
+      }
       if (!selDate) {
         slotsTitle.textContent = "Elige un día";
         slotsEl.innerHTML = `<p class="muted">Selecciona un día disponible en el calendario para ver los horarios.</p>`;
@@ -288,12 +316,15 @@
       }
       const label = longDate(selDate);
       slotsTitle.textContent = label.charAt(0).toUpperCase() + label.slice(1);
-      slotsEl.innerHTML = slotsFor(selDate)
-        .map(
-          (t) =>
-            `<button type="button" class="slot ${t === selTime ? "is-selected" : ""}" data-time="${t}">${t}</button>`
-        )
-        .join("");
+      const list = slotsFor(selDate);
+      slotsEl.innerHTML = list.length
+        ? list
+            .map(
+              (t) =>
+                `<button type="button" class="slot ${t === selTime ? "is-selected" : ""}" data-time="${t}">${t}</button>`
+            )
+            .join("")
+        : `<p class="muted">Ya no quedan horarios este día. Elige otro, por favor.</p>`;
     }
 
     function renderSummary() {
@@ -307,22 +338,54 @@
       }
     }
 
+    function renderAll() {
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    }
+
+    // Si el horario elegido ya no está libre, se quita la selección.
+    function reconcile() {
+      if (selDate && !slotsFor(selDate).length) selDate = null;
+      if (selDate && selTime && !slotsFor(selDate).includes(selTime)) selTime = null;
+      if (!selDate) selTime = null;
+    }
+
+    function jumpToFirstFree() {
+      const firstDay = Object.keys(remoteSlots || {}).sort()[0];
+      if (firstDay) {
+        const d = parseISO(firstDay);
+        view = new Date(d.getFullYear(), d.getMonth(), 1);
+      }
+    }
+
+    async function loadSlots() {
+      try {
+        const res = await fetch(`${API}?action=slots`, { cache: "no-store" });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.error || "error");
+        remoteSlots = data.slots || {};
+        return true;
+      } catch (err) {
+        console.warn("Agenda en línea no disponible, se usa WhatsApp.", err);
+        return false;
+      }
+    }
+
     grid.addEventListener("click", (e) => {
       const btn = e.target.closest(".cal__day.is-free");
       if (!btn) return;
       selDate = parseISO(btn.dataset.date);
       selTime = null;
-      msg.textContent = "";
-      renderCalendar();
-      renderSlots();
-      renderSummary();
+      setMsg("");
+      renderAll();
     });
 
     slotsEl.addEventListener("click", (e) => {
       const btn = e.target.closest(".slot");
       if (!btn) return;
       selTime = btn.dataset.time;
-      msg.textContent = "";
+      setMsg("");
       renderSlots();
       renderSummary();
     });
@@ -336,44 +399,137 @@
       renderCalendar();
     });
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      msg.classList.remove("is-ok");
+    function readForm() {
       const data = new FormData(form);
-      const nombre = String(data.get("nombre") || "").trim();
-      const tel = String(data.get("telefono") || "").trim();
-      form.nombre.classList.toggle("is-invalid", !nombre);
-      form.telefono.classList.toggle("is-invalid", tel.replace(/\D/g, "").length < 8);
+      const get = (k) => String(data.get(k) || "").trim();
+      return {
+        nombre: get("nombre"),
+        telefono: get("telefono"),
+        email: get("email"),
+        modalidad: get("modalidad"),
+        motivo: get("motivo"),
+        website: get("website"),
+        acepto: data.get("acepto") === "on",
+      };
+    }
 
-      if (!selDate || !selTime) {
-        msg.textContent = "Elige primero un día y un horario.";
-        return;
-      }
-      if (!nombre || tel.replace(/\D/g, "").length < 8) {
-        msg.textContent = "Escribe tu nombre y un teléfono válido.";
-        return;
-      }
+    function validate(d) {
+      const telOk = d.telefono.replace(/\D/g, "").length >= 8;
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email);
+      form.nombre.classList.toggle("is-invalid", d.nombre.length < 2);
+      form.telefono.classList.toggle("is-invalid", !telOk);
+      form.email.classList.toggle("is-invalid", online ? !emailOk : Boolean(d.email) && !emailOk);
+      if (!selDate || !selTime) return "Elige primero un día y un horario.";
+      if (d.nombre.length < 2 || !telOk) return "Escribe tu nombre y un teléfono válido.";
+      if (online && !emailOk) return "Escribe un correo válido para enviarte la confirmación.";
+      if (!d.acepto) return "Para continuar, acepta el uso de tus datos para la cita.";
+      return "";
+    }
 
-      const motivo = String(data.get("motivo") || "").trim();
+    function showBooked(d, meet) {
+      form.hidden = true;
+      $(".slots").hidden = true;
+      booked.hidden = false;
+      $("#booked-when").textContent = `${longDate(selDate)} · ${selTime} h · ${d.modalidad}`;
+      $("#booked-detail").innerHTML =
+        `Te envié la confirmación a <strong>${escapeHTML(d.email)}</strong> (revisa también tu carpeta de spam). ` +
+        (d.modalidad === "Presencial"
+          ? `Te espero en ${escapeHTML([S.direccion, S.ciudad].filter(Boolean).join(", ").replace(/\.$/, ""))}.`
+          : meet
+            ? "Tu enlace de videollamada también va en el correo."
+            : "Te enviaré el enlace de la videollamada antes de la sesión.");
+      const meetBtn = $("#booked-meet");
+      meetBtn.hidden = !meet;
+      if (meet) meetBtn.href = meet;
+      $("#booked-wa").href = waLink(
+        `Hola Ana Laura, soy ${d.nombre}. Acabo de reservar mi cita para el ${longDate(selDate)} a las ${selTime} h (${d.modalidad}).`
+      );
+      booked.focus();
+    }
+
+    $("#booked-again").addEventListener("click", () => {
+      booked.hidden = true;
+      form.hidden = false;
+      $(".slots").hidden = false;
+      form.reset();
+      selDate = null;
+      selTime = null;
+      setMsg("");
+      renderAll();
+    });
+
+    function sendWhatsApp(d) {
       const text = [
         `Hola Ana Laura, me gustaría agendar una cita.`,
         ``,
-        `• Nombre: ${nombre}`,
-        `• Teléfono: ${tel}`,
+        `• Nombre: ${d.nombre}`,
+        `• Teléfono: ${d.telefono}`,
+        d.email ? `• Correo: ${d.email}` : null,
         `• Fecha: ${longDate(selDate)}`,
         `• Hora: ${selTime} h`,
-        `• Modalidad: ${data.get("modalidad")}`,
-        motivo ? `• Motivo: ${motivo}` : null,
+        `• Modalidad: ${d.modalidad}`,
+        d.motivo ? `• Motivo: ${d.motivo}` : null,
       ]
         .filter((l) => l !== null)
         .join("\n");
-
       window.open(waLink(text), "_blank", "noopener");
-      msg.classList.add("is-ok");
-      msg.textContent = "¡Listo! Se abrió WhatsApp con tu solicitud. Envía el mensaje y te confirmo a la brevedad.";
+      setMsg("¡Listo! Se abrió WhatsApp con tu solicitud. Envía el mensaje y te confirmo a la brevedad.", true);
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const d = readForm();
+      const error = validate(d);
+      if (error) return setMsg(error);
+      if (!online) return sendWhatsApp(d);
+
+      submit.disabled = true;
+      submit.textContent = "Reservando…";
+      setMsg("");
+      try {
+        const res = await fetch(API, {
+          method: "POST",
+          // text/plain evita la verificación CORS previa que Apps Script no admite
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ ...d, fecha: isoDate(selDate), hora: selTime }),
+        });
+        const r = await res.json();
+        if (r.ok) {
+          remoteSlots[isoDate(selDate)] = slotsFor(selDate).filter((t) => t !== selTime);
+          showBooked(d, r.meet);
+        } else if (r.code === "ocupado") {
+          if (r.slots) remoteSlots = r.slots;
+          else await loadSlots();
+          reconcile();
+          renderAll();
+          setMsg(r.error || "Ese horario se acaba de ocupar. Por favor elige otro.");
+        } else {
+          setMsg(r.error || "No se pudo reservar. Intenta de nuevo.");
+        }
+      } catch (err) {
+        console.error(err);
+        setMsg("No pudimos conectar con la agenda. Revisa tu conexión o escríbeme por WhatsApp.");
+      } finally {
+        submit.disabled = false;
+        applyMode();
+      }
     });
 
-    renderCalendar();
-    renderSlots();
+    applyMode();
+    renderAll();
+
+    if (online) {
+      loadSlots().then((ok) => {
+        loading = false;
+        if (ok) {
+          jumpToFirstFree();
+        } else {
+          online = false; // respaldo: horario fijo + WhatsApp
+          first.setDate(first.getDate() + (A.diasAnticipacionMin ?? 1));
+          applyMode();
+        }
+        renderAll();
+      });
+    }
   })();
 })();

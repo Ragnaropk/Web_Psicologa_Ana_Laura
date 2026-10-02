@@ -326,7 +326,7 @@
         <header class="section__head reveal">
           <p class="eyebrow">Agenda</p>
           <h2>Reserva tu <em>cita</em></h2>
-          <p class="lead">Elige un día y un horario disponibles. Tu solicitud llega directo a mi WhatsApp y te confirmo a la brevedad.</p>
+          <p class="lead">Elige un día y un horario libres. Al reservar, el horario queda apartado para ti y te llega la confirmación por correo.</p>
         </header>
 
         <div class="booking reveal">
@@ -355,23 +355,44 @@
             <form class="form" id="booking-form" novalidate>
               <div class="form__row">
                 <label>Nombre
-                  <input name="nombre" type="text" autocomplete="name" required />
+                  <input name="nombre" type="text" autocomplete="name" maxlength="80" required />
                 </label>
-                <label>Teléfono
-                  <input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required />
+                <label>Teléfono (WhatsApp)
+                  <input name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" required />
                 </label>
               </div>
+              <label id="email-field"><span>Correo <span class="muted" id="email-hint">(para enviarte la confirmación)</span></span>
+                <input name="email" type="email" autocomplete="email" maxlength="120" />
+              </label>
               <fieldset class="form__radios">
                 <legend>Modalidad</legend>
                 <div id="modalidades"></div>
               </fieldset>
               <label><span>¿Qué te gustaría trabajar? <span class="muted">(opcional)</span></span>
-                <textarea name="motivo" rows="3" placeholder="Puedes escribir solo unas palabras."></textarea>
+                <textarea name="motivo" rows="3" maxlength="600" placeholder="Puedes escribir solo unas palabras."></textarea>
+              </label>
+              <!-- Campo trampa para robots: debe quedar vacío -->
+              <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <label class="consent">
+                <input name="acepto" type="checkbox" required />
+                <span>Acepto que mis datos se usen únicamente para gestionar mi cita y que se traten de forma confidencial.</span>
               </label>
               <div class="summary" id="summary" hidden></div>
-              <button class="btn btn--block" type="submit">Solicitar cita por WhatsApp</button>
+              <button class="btn btn--block" id="booking-submit" type="submit">Reservar mi cita</button>
               <p class="form__msg" id="form-msg" role="status"></p>
             </form>
+
+            <div class="booked" id="booked" hidden tabindex="-1">
+              <div class="booked__icon" aria-hidden="true"><svg><use href="#pulse-heart"/></svg></div>
+              <h3>¡Tu cita está reservada!</h3>
+              <p class="booked__when" id="booked-when"></p>
+              <p id="booked-detail"></p>
+              <div class="booked__actions">
+                <a class="btn btn--small" id="booked-meet" href="#" target="_blank" rel="noopener" hidden>Abrir enlace de videollamada</a>
+                <a class="btn btn--small btn--ghost" id="booked-wa" href="#" target="_blank" rel="noopener">Escribirle por WhatsApp</a>
+              </div>
+              <button class="link-btn" id="booked-again" type="button">Agendar otra cita</button>
+            </div>
           </div>
         </div>
       </div>

@@ -22,7 +22,8 @@ Casi todo se cambia en **`js/config.js`**:
 | WhatsApp, correo, redes | `whatsapp`, `email`, `instagram`, `facebook` |
 | Dirección y mapa | `direccion`, `ciudad`, `googleMapsUrl`, `googleMapsEmbed` |
 | Precio y duración de la consulta | `consulta` |
-| Días y horarios disponibles | `agenda.horario` (0 = domingo … 6 = sábado) |
+| Servidor de citas | `agendaApi` (ver `backend/LEEME.md`) |
+| Días y horarios disponibles | `backend/Code.gs` → `HORARIO` (o `agenda.horario` si no hay servidor) |
 | Vacaciones / días sin consulta | `agenda.diasBloqueados` |
 | Talleres | `talleres` (copiar un bloque para agregar otro) |
 | Testimonios | `testimonios` (si queda vacío, la sección se oculta) |
@@ -34,7 +35,16 @@ Casi todo se cambia en **`js/config.js`**:
 
 ## Cómo funciona la agenda
 
-La persona elige día, hora y modalidad; al enviar, se abre WhatsApp con un mensaje ya escrito para Ana Laura, que confirma la cita manualmente. La agenda **no sabe** qué horarios ya están ocupados: para bloqueo automático se puede conectar más adelante Cal.com, Calendly o Google Calendar.
+La agenda se conecta al **Google Calendar de Ana Laura** mediante un pequeño servidor gratuito de Google Apps Script (carpeta [`backend/`](backend/LEEME.md)):
+
+1. La página muestra solo los horarios libres (horario de consulta menos lo que ya hay en su calendario).
+2. Al reservar, el horario se aparta al instante y nadie más puede tomarlo.
+3. La cita se crea en su calendario (con Google Meet si es online).
+4. Llega un correo de confirmación al paciente y otro de aviso a Ana Laura, con un botón para confirmarle por WhatsApp.
+5. Un día antes, el paciente recibe un recordatorio por correo.
+
+**Instalación:** seguir [`backend/LEEME.md`](backend/LEEME.md) y pegar la URL del servidor en `agendaApi` de `js/config.js`.
+Mientras `agendaApi` esté vacío, la agenda usa el horario fijo de `config.js` y envía la solicitud por WhatsApp.
 
 ## Publicar
 
@@ -47,6 +57,8 @@ Su ficha de Google Maps ya enlaza a `anapsicologa.github.io`. Para que esa direc
 - [x] Reseñas de Google (3 destacadas + calificación 5,0 / 64 reseñas)
 - [ ] Subir `img/logo.png` y `img/ana-laura.jpg`
 - [ ] Formación académica y cédula profesional
+- [ ] Instalar el servidor de citas (`backend/LEEME.md`) y poner su URL en `agendaApi`
+- [ ] Horario de consulta real
 - [ ] Fechas y precios reales de talleres
 - [ ] Más testimonios (opcional)
 - [ ] Formas de pago

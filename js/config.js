@@ -39,7 +39,15 @@ window.SITE = {
     modalidades: ["Presencial", "Online"],
   },
 
-  // --- Agenda (disponibilidad semanal) ------------------------------------
+  // --- Agenda -------------------------------------------------------------
+  // URL del servidor de citas (Google Apps Script). Ver backend/LEEME.md.
+  // Con la URL puesta: los horarios salen del Google Calendar de Ana Laura,
+  // cada reserva aparta el horario y se envían correos a ella y al paciente.
+  // El horario de consulta se edita entonces en backend/Code.gs.
+  // Sin URL (""): se usa el horario de abajo y la solicitud va por WhatsApp.
+  agendaApi: "",
+
+  // Horario de respaldo (solo se usa si agendaApi está vacío).
   // 0 = domingo, 1 = lunes … 6 = sábado. Horas en formato 24 h.
   agenda: {
     diasAnticipacionMin: 1, // no se puede agendar para hoy
