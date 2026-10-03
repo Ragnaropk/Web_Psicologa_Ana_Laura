@@ -111,6 +111,202 @@ window.SITE = {
     },
   ],
 
+  // --- Servicios (resumen de los flyers de la carpeta Actividades) ---------
+  // categoria: "etapas" (Para quién) · "emocional" (Salud emocional) ·
+  //            "duelo" (Duelo y pérdidas)
+  // flyers: imágenes que se abren con el botón "Ver flyer".
+  servicios: [
+    {
+      titulo: "Terapia para niños",
+      categoria: "etapas",
+      para: "Niñas y niños",
+      frase: "Un espacio seguro para jugar, expresar y comprender lo que sienten.",
+      puntos: [
+        "Pulso de Origen + arteterapia: juego, arte y regulación emocional.",
+        "Ansiedad, conducta, autoestima, miedos, duelo y cambios.",
+        "Acompaño también a mamá y papá para fortalecer el proceso.",
+      ],
+      flyers: ["Actividades/13.jpeg"],
+    },
+    {
+      titulo: "Terapia para adolescentes",
+      categoria: "etapas",
+      para: "Adolescentes",
+      frase: "Un espacio seguro para expresar, comprender y reconstruir su historia.",
+      puntos: [
+        "Pulso de Origen + arteterapia: arte, palabra y regulación emocional.",
+        "Ansiedad, depresión, identidad y autoestima.",
+        "Vínculos, duelo y heridas emocionales.",
+      ],
+      flyers: ["Actividades/14.jpeg"],
+    },
+    {
+      titulo: "Terapia de pareja",
+      categoria: "etapas",
+      para: "Parejas",
+      frase: "Reconecten, compréndanse y construyan juntos una relación más sana.",
+      puntos: [
+        "Método: cuerpo · emoción · historia · elección · conexión.",
+        "Comunicación, conflictos sanos, confianza e intimidad.",
+        "Sesiones individuales para sanar lo que duele en silencio.",
+      ],
+      flyers: ["Actividades/15.jpeg"],
+    },
+    {
+      titulo: "Psicogerontología",
+      categoria: "etapas",
+      para: "Personas mayores",
+      frase: "Tu historia tiene valor. Tu voz sigue contando.",
+      puntos: [
+        "Reconocer tu propia voz, tu historia y tu sentido de vida.",
+        "Acompañar duelos, cambios y vínculos.",
+        "Regulación emocional a tu ritmo, respetando tu autonomía.",
+      ],
+      flyers: ["Actividades/5.jpeg"],
+    },
+    {
+      titulo: "Ansiedad",
+      categoria: "emocional",
+      frase: "Tu cuerpo no está en peligro: está intentando protegerte.",
+      puntos: [
+        "No solo controlar síntomas: liberar su origen emocional.",
+        "Regular el sistema nervioso y salir del estado de alerta.",
+        "DBT, Gestalt, logoterapia y trabajo con el niño interior.",
+      ],
+      flyers: ["Actividades/19.jpeg", "Actividades/17.jpeg"],
+    },
+    {
+      titulo: "Depresión",
+      categoria: "emocional",
+      para: "Adolescentes y adultos",
+      frase: "No es flojera ni falta de voluntad: es dolor que lleva tiempo en silencio.",
+      puntos: [
+        "Recuperar energía y actividades significativas.",
+        "Comprender emociones, necesidades, heridas y pérdidas.",
+        "Fortalecer vínculos, autocuidado y sentido de vida.",
+      ],
+      flyers: ["Actividades/20.jpeg", "Actividades/6.jpeg"],
+    },
+    {
+      titulo: "TLP",
+      subtitulo: "Trastorno límite de la personalidad",
+      categoria: "emocional",
+      para: "Adolescentes y adultos",
+      frase: "Sentirlo todo no es exagerar. Tiene una historia.",
+      puntos: [
+        "Habilidades DBT para emociones intensas e impulsos.",
+        "Vínculos, límites y miedo al abandono.",
+        "Identidad y sentido: más calma y estabilidad.",
+      ],
+      flyers: ["Actividades/16.jpeg", "Actividades/7.jpeg"],
+    },
+    {
+      titulo: "TID",
+      subtitulo: "Trastorno de identidad disociativo",
+      categoria: "emocional",
+      frase: "Tu experiencia merece comprensión. Tu proceso merece tiempo.",
+      puntos: [
+        "Seguridad, estabilidad y anclaje al presente.",
+        "Comprensión y cooperación entre estados de identidad.",
+        "Trabajo gradual con el trauma, según tu estabilidad y consentimiento.",
+      ],
+      flyers: ["Actividades/4.jpeg", "Actividades/3.jpeg"],
+    },
+    {
+      titulo: "TOC",
+      subtitulo: "Trastorno obsesivo-compulsivo",
+      categoria: "emocional",
+      frase: "No son manías: muchas veces es buscar control cuando por dentro hay miedo.",
+      puntos: [
+        "Sanar el origen emocional que sostiene el ciclo.",
+        "Recuperar calma, espacio mental y control interno.",
+        "DBT, Gestalt, logoterapia y trabajo con el niño interior.",
+      ],
+      flyers: ["Actividades/18.jpeg"],
+    },
+    {
+      titulo: "TDAH",
+      categoria: "emocional",
+      para: "Niños, adolescentes y adultos",
+      frase: "Herramientas que se adaptan a ti, a tu edad y a tu contexto.",
+      puntos: [
+        "Organización cotidiana: pasos pequeños, rutinas y apoyos visuales.",
+        "Recursos para la frustración y la impulsividad.",
+        "Autoestima y vínculos: comprender tus necesidades.",
+      ],
+      flyers: ["Actividades/2.jpeg"],
+    },
+    {
+      titulo: "Adicciones",
+      categoria: "emocional",
+      frase: "No te defino por tu consumo: te acompaño a comprender lo que intentas aliviar.",
+      puntos: [
+        "El dolor, la ansiedad y el vacío que hay detrás.",
+        "Trauma, culpa, vergüenza y patrones de repetición.",
+        "Regular impulsos y prevenir recaídas, con apoyo médico o psiquiátrico si se requiere.",
+      ],
+      flyers: ["Actividades/21.jpeg"],
+    },
+    {
+      titulo: "Trastornos alimentarios",
+      categoria: "emocional",
+      frase: "No reduzco tu proceso al peso: acompaño tu relación con el cuerpo y tu historia.",
+      puntos: [
+        "Autoestima, perfeccionismo, ansiedad y control.",
+        "Sanar el vínculo contigo con sensibilidad y a tu ritmo.",
+        "Trabajo coordinado con psiquiatría, medicina y nutrición si se requiere.",
+      ],
+      flyers: ["Actividades/22.jpeg"],
+    },
+    {
+      titulo: "Tanatología y duelo",
+      categoria: "duelo",
+      frase: "Honrar, sentir y resignificar también es sanar.",
+      puntos: [
+        "No solo acompaño el dolor: te ayudo a comprenderlo y transformarlo.",
+        "Integro tanatología, logoterapia, Gestalt, Jung y trauma.",
+        "Un proceso único y respetuoso de tu historia y tu ritmo.",
+      ],
+      flyers: ["Actividades/8.jpeg"],
+    },
+    {
+      titulo: "Duelo perinatal",
+      categoria: "duelo",
+      para: "Mamá, papá y pareja",
+      frase: "Cuando un bebé se va, nace un duelo que merece ser nombrado y honrado.",
+      puntos: [
+        "No minimizo tu dolor ni lo apresuro.",
+        "Trabajo el vínculo, la culpa, el cuerpo y el sentido de la pérdida.",
+        "Acompaño a mamá, papá y pareja con una mirada sensible.",
+      ],
+      flyers: ["Actividades/10.jpeg"],
+    },
+    {
+      titulo: "Infertilidad",
+      categoria: "duelo",
+      para: "Personas y parejas",
+      frase: "Un espacio para sostener el duelo, la esperanza y el sentido. No tienen que atravesarlo solos.",
+      puntos: [
+        "Procesar dolor, frustración e incertidumbre.",
+        "Culpa, heridas emocionales y autocuidado.",
+        "Comunicación en pareja y reconexión con el sentido personal.",
+      ],
+      flyers: ["Actividades/9.jpeg"],
+    },
+    {
+      titulo: "Pacientes terminales",
+      categoria: "duelo",
+      para: "Paciente y familia",
+      frase: "Acompañar el final de la vida también es honrarla.",
+      puntos: [
+        "Escucha, contención y manejo emocional y espiritual.",
+        "Apoyo a la familia.",
+        "Cierre, despedida y legado.",
+      ],
+      flyers: ["Actividades/11.jpeg"],
+    },
+  ],
+
   // --- Testimonios ---------------------------------------------------------
   // Reseñas reales de su ficha de Google Maps (nombre + inicial del apellido).
   // "detalle" es opcional. Si la lista queda vacía, la sección se oculta sola.

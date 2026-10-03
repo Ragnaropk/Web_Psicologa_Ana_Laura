@@ -145,6 +145,96 @@
       .join("");
   })();
 
+  /* ---------- Servicios ---------- */
+  (function renderServices() {
+    const wrap = $("#services");
+    const list = S.servicios || [];
+    if (!list.length) {
+      $("#servicios").hidden = true;
+      return;
+    }
+    const etiquetas = { etapas: "Para quién", emocional: "Salud emocional", duelo: "Duelo y pérdidas" };
+
+    wrap.innerHTML = list
+      .map((sv) => {
+        const flyers = (sv.flyers || []).map((f) => encodeURI(f)).join("|");
+        const ask = waLink(`Hola Ana Laura, me gustaría información sobre: ${sv.titulo}.`);
+        return `
+        <article class="service" data-cat="${escapeHTML(sv.categoria || "")}">
+          <p class="service__cat">${escapeHTML(etiquetas[sv.categoria] || "")}</p>
+          <h3>${escapeHTML(sv.titulo)}</h3>
+          ${sv.subtitulo ? `<p class="service__sub">${escapeHTML(sv.subtitulo)}</p>` : ""}
+          ${sv.para ? `<p class="service__para">${escapeHTML(sv.para)}</p>` : ""}
+          <p class="service__frase">${escapeHTML(sv.frase || "")}</p>
+          <ul>${(sv.puntos || []).map((pt) => `<li>${escapeHTML(pt)}</li>`).join("")}</ul>
+          <div class="service__actions">
+            <a class="btn btn--small" href="#agenda">Agendar</a>
+            <a class="link-btn" href="${ask}" target="_blank" rel="noopener">Preguntar</a>
+            ${flyers ? `<button class="link-btn" type="button" data-flyers="${flyers}" data-title="${escapeHTML(sv.titulo)}">Ver flyer</button>` : ""}
+          </div>
+        </article>`;
+      })
+      .join("");
+
+    const filters = $$(".filter");
+    filters.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const cat = btn.dataset.cat;
+        filters.forEach((b) => {
+          b.classList.toggle("is-active", b === btn);
+          b.setAttribute("aria-selected", String(b === btn));
+        });
+        $$(".service", wrap).forEach((card) => {
+          card.hidden = cat !== "todos" && card.dataset.cat !== cat;
+        });
+      })
+    );
+  })();
+
+  /* ---------- Visor de flyers ---------- */
+  (function lightbox() {
+    const dlg = $("#lightbox");
+    if (!dlg || typeof dlg.showModal !== "function") return;
+    const img = $("#lightbox-img");
+    const count = $("#lightbox-count");
+    const prevBtn = $("#lightbox-prev");
+    const nextBtn = $("#lightbox-next");
+    let items = [];
+    let idx = 0;
+    let title = "";
+
+    const show = () => {
+      img.src = items[idx];
+      img.alt = `Flyer: ${title}`;
+      const many = items.length > 1;
+      prevBtn.hidden = nextBtn.hidden = !many;
+      count.textContent = many ? `${idx + 1} / ${items.length}` : title;
+    };
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-flyers]");
+      if (!btn) return;
+      items = btn.dataset.flyers.split("|").filter(Boolean);
+      title = btn.dataset.title || "";
+      idx = 0;
+      show();
+      dlg.showModal();
+    });
+    prevBtn.addEventListener("click", () => {
+      idx = (idx - 1 + items.length) % items.length;
+      show();
+    });
+    nextBtn.addEventListener("click", () => {
+      idx = (idx + 1) % items.length;
+      show();
+    });
+    $(".lightbox__close", dlg).addEventListener("click", () => dlg.close());
+    dlg.addEventListener("click", (e) => {
+      if (e.target === dlg) dlg.close(); // clic fuera de la imagen
+    });
+    dlg.addEventListener("close", () => img.removeAttribute("src"));
+  })();
+
   /* ---------- Testimonios ---------- */
   (function renderQuotes() {
     const list = S.testimonios || [];

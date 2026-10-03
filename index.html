@@ -53,7 +53,7 @@
 
       <nav class="nav" id="nav" aria-label="Principal">
         <a href="#metodo">La terapia</a>
-        <a href="#corrientes">Corrientes</a>
+        <a href="#servicios">Servicios</a>
         <a href="#sobre-mi">Sobre mí</a>
         <a href="#consulta">Consulta</a>
         <a href="#talleres">Talleres</a>
@@ -184,6 +184,39 @@
           <li class="story reveal"><strong>TOC</strong><small>Trastorno obsesivo-compulsivo</small><span>Pensamientos que insisten y rituales que prometen calma.</span></li>
           <li class="story reveal"><strong>TDAH</strong><small>Déficit de atención e hiperactividad</small><span>Una mente veloz en un mundo que pide ir más despacio.</span></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- ============ SERVICIOS ============ -->
+    <section class="section section--tint" id="servicios">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Servicios</p>
+          <h2>¿En qué <em>te acompaño</em>?</h2>
+          <p class="lead">Cada proceso parte de la Terapia del Pulso de Origen Vital y se adapta a tu edad, tu historia y lo que estás viviendo. Presencial en Atizapán de Zaragoza u online.</p>
+        </header>
+
+        <div class="filters reveal" role="tablist" aria-label="Filtrar servicios">
+          <button class="filter is-active" type="button" role="tab" aria-selected="true" data-cat="todos">Todos</button>
+          <button class="filter" type="button" role="tab" aria-selected="false" data-cat="etapas">Para quién</button>
+          <button class="filter" type="button" role="tab" aria-selected="false" data-cat="emocional">Salud emocional</button>
+          <button class="filter" type="button" role="tab" aria-selected="false" data-cat="duelo">Duelo y pérdidas</button>
+        </div>
+
+        <div class="services" id="services"></div>
+
+        <aside class="lifeline reveal" aria-labelledby="lifeline-title">
+          <div class="lifeline__ribbon" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><path d="M20 4c-8 0-12 6-12 13 0 9 7 17 12 23 5-6 12-14 12-23 0-7-4-13-12-13Z M14 38 6 56l8-3 4 6 6-15 M26 38l8 18-8-3-4 6-6-15"/></svg>
+          </div>
+          <div class="lifeline__body">
+            <p class="eyebrow">Prevención del suicidio</p>
+            <h3 id="lifeline-title">Tu dolor merece ser escuchado. <em>No eres una carga.</em></h3>
+            <p>Las voces que te hieren no definen tu valor, y pedir ayuda también es un acto de valentía. Hablar salva vidas: si te sientes así, escríbeme y te acompaño.</p>
+            <p class="lifeline__urgent">Si tú o alguien cercano está en riesgo <strong>ahora</strong>, llama a la <a href="tel:8009112000">Línea de la Vida 800 911 2000</a> (24 h, gratuita) o al <a href="tel:911">911</a>.</p>
+          </div>
+          <button class="btn btn--ghost btn--small" type="button" data-flyers="Actividades/WhatsApp%20Image%202026-10-02%20at%206.26.04%20PM.jpeg" data-title="Prevención del suicidio">Ver flyer</button>
+        </aside>
       </div>
     </section>
 
@@ -485,6 +518,18 @@
       <p class="small muted">© <span id="year"></span> · Todos los derechos reservados</p>
     </div>
   </footer>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Flyer">
+    <button class="lightbox__close" type="button" aria-label="Cerrar">×</button>
+    <figure>
+      <img id="lightbox-img" alt="" />
+      <figcaption>
+        <button class="lightbox__nav" id="lightbox-prev" type="button" aria-label="Flyer anterior">‹</button>
+        <span id="lightbox-count"></span>
+        <button class="lightbox__nav" id="lightbox-next" type="button" aria-label="Flyer siguiente">›</button>
+      </figcaption>
+    </figure>
+  </dialog>
 
   <a class="wa-float" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3Zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4Z"/></svg>
