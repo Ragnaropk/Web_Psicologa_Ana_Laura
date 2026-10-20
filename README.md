@@ -56,7 +56,7 @@ Su ficha de Google Maps ya enlaza a `anapsicologa.github.io`. Para que esa direc
 - [x] Dirección y mapa (Google Maps)
 - [x] Reseñas de Google (3 destacadas + calificación 5,0 / 64 reseñas)
 - [ ] Subir `img/logo.png` y `img/ana-laura.jpg`
-- [ ] Formación académica y cédula profesional
+- [x] Historia, formación y cédula profesional (11069167)
 - [ ] Instalar el servidor de citas (`backend/LEEME.md`) y poner su URL en `agendaApi`
 - [ ] Horario de consulta real
 - [ ] Fechas y precios reales de talleres

@@ -11,7 +11,7 @@ window.SITE = {
   metodologia: "Terapia del Pulso de Origen Vital",
   lema: "Regresa a tu Yo Original",
   aniosExperiencia: 10,
-  cedula: "", // Ej. "Céd. Prof. 1234567" — se muestra en el pie si se llena
+  cedula: "Céd. Prof. 11069167", // se muestra en el pie de página
 
   // WhatsApp en formato internacional, solo números (52 = México).
   whatsapp: "525637799686",
