@@ -666,3 +666,60 @@ strong { font-weight: 600; }
   #sobre-mi .split { align-items: start; }
   #sobre-mi .split__media { position: sticky; top: calc(var(--header-h) + 40px); }
 }
+
+/* ---------- Áreas de atención: temas, objetivo y notas ---------- */
+.motto--center { border: 0; padding: 0; text-align: center; font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--coral); margin: 1.2rem auto 0; }
+.service .service__temas { display: flex; flex-wrap: wrap; gap: .35rem; margin: .2rem 0 .4rem; flex: none; }
+.service .service__temas li { padding: .22rem .62rem; border-radius: 999px; background: var(--cream); border: 1px solid var(--line); font-size: .8rem; color: var(--ink); line-height: 1.35; }
+.service .service__temas li::before { display: none; }
+.service__more { align-self: flex-start; border: 0; background: none; padding: .2rem 0; font: 600 .82rem var(--f-sans); color: var(--violet); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.service__obj { font-size: .9rem; color: var(--ink-soft); margin: .6rem 0 .4rem; padding-left: .8rem; border-left: 3px solid #e4d4ee; flex: 1; }
+.service__nota { font-size: .78rem; color: var(--ink-soft); background: #fff6d6; border-radius: 10px; padding: .45rem .7rem; margin: .2rem 0 .6rem; }
+.service__actions { margin-top: auto; }
+.services__note { max-width: 860px; margin: 2rem auto 0; text-align: center; font-size: .84rem; color: var(--ink-soft); }
+
+.chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+.chips li { padding: .4rem .9rem; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: .92rem; }
+.chips--small li { font-size: .8rem; padding: .3rem .7rem; background: var(--cream); }
+
+/* ---------- Evaluación psicológica ---------- */
+.eval { display: grid; grid-template-columns: 1.15fr .85fr; gap: 1.6rem; align-items: start; }
+.eval__areas { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.eval-area { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem 1.4rem 1.2rem; position: relative; }
+.eval-area::before { content: ""; position: absolute; left: 1.4rem; top: 0; width: 42px; height: 3px; border-radius: 0 0 3px 3px; background: var(--rainbow); }
+.eval-area h3 { font-size: 1.35rem; margin-bottom: .45rem; }
+.eval-area p { margin: 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.55; }
+.eval__side { background: var(--paper); border-radius: 26px; padding: 1.8rem; box-shadow: var(--shadow); }
+.eval__side h3 { font-size: 1.5rem; margin-bottom: .8rem; }
+.eval__side h4 { font-family: var(--f-caps); font-weight: 500; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); margin: 1.4rem 0 .7rem; }
+.eval__steps { counter-reset: e; list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+.eval__steps li { counter-increment: e; display: flex; gap: .7rem; align-items: baseline; font-size: .93rem; }
+.eval__steps li::before { content: counter(e); flex: none; width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; background: #f1e9f5; color: var(--plum); font-weight: 700; font-size: .8rem; }
+.eval__side .btn { margin-top: 1.4rem; }
+.fineprint { max-width: 900px; margin: 2rem auto 0; font-size: .85rem; color: var(--ink-soft); text-align: center; }
+.fineprint p { margin: 0 0 .6rem; }
+.fineprint--dark { color: #bfb0c8; }
+.fineprint--dark .btn { margin-top: .8rem; --bg: #fff; color: var(--plum); }
+.fineprint--dark .btn:hover { color: #fff; }
+
+/* ---------- Psicología forense ---------- */
+.forense { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+.forense__card { background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); border-radius: var(--radius); padding: 1.5rem; }
+.forense__card h3 { font-size: 1.45rem; margin-bottom: .7rem; }
+.forense__card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .45rem; }
+.forense__card li { position: relative; padding-left: 1rem; font-size: .92rem; color: #d9cde0; line-height: 1.45; }
+.forense__card li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: #9fd8cf; }
+.forense__card--principles { background: rgba(159, 216, 207, .1); border-color: rgba(159, 216, 207, .35); }
+
+@media (min-width: 961px) and (max-width: 1180px) {
+  .nav { gap: 1rem; }
+  .nav a:not(.btn) { font-size: .88rem; }
+}
+@media (max-width: 960px) {
+  .eval { grid-template-columns: 1fr; }
+  .forense { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .eval__areas, .forense { grid-template-columns: 1fr; }
+  .eval__side { padding: 1.4rem; }
+}

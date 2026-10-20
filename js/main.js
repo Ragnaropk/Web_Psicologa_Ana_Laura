@@ -153,20 +153,29 @@
       $("#servicios").hidden = true;
       return;
     }
-    const etiquetas = { etapas: "Para quién", emocional: "Salud emocional", duelo: "Duelo y pérdidas" };
+    const etiquetas = { personas: "Para quién", emocional: "Salud emocional", trauma: "Trauma, violencia y duelo" };
+    const VISIBLES = 6; // temas visibles antes de "ver más"
 
     wrap.innerHTML = list
       .map((sv) => {
         const flyers = (sv.flyers || []).map((f) => encodeURI(f)).join("|");
         const ask = waLink(`Hola Ana Laura, me gustaría información sobre: ${sv.titulo}.`);
+        const temas = sv.temas || [];
+        const extra = temas.length - VISIBLES;
+        const chips = temas
+          .map((t, i) => `<li${i >= VISIBLES ? " data-extra hidden" : ""}>${escapeHTML(t)}</li>`)
+          .join("");
         return `
         <article class="service" data-cat="${escapeHTML(sv.categoria || "")}">
           <p class="service__cat">${escapeHTML(etiquetas[sv.categoria] || "")}</p>
           <h3>${escapeHTML(sv.titulo)}</h3>
           ${sv.subtitulo ? `<p class="service__sub">${escapeHTML(sv.subtitulo)}</p>` : ""}
           ${sv.para ? `<p class="service__para">${escapeHTML(sv.para)}</p>` : ""}
-          <p class="service__frase">${escapeHTML(sv.frase || "")}</p>
-          <ul>${(sv.puntos || []).map((pt) => `<li>${escapeHTML(pt)}</li>`).join("")}</ul>
+          ${sv.frase ? `<p class="service__frase">${escapeHTML(sv.frase)}</p>` : ""}
+          <ul class="service__temas">${chips}</ul>
+          ${extra > 0 ? `<button class="service__more" type="button" aria-expanded="false" data-more="${extra}">+ ${extra} más</button>` : ""}
+          ${sv.objetivo ? `<p class="service__obj">${escapeHTML(sv.objetivo)}</p>` : ""}
+          ${sv.nota ? `<p class="service__nota">${escapeHTML(sv.nota)}</p>` : ""}
           <div class="service__actions">
             <a class="btn btn--small" href="#agenda">Agendar</a>
             <a class="link-btn" href="${ask}" target="_blank" rel="noopener">Preguntar</a>
@@ -175,6 +184,15 @@
         </article>`;
       })
       .join("");
+
+    wrap.addEventListener("click", (e) => {
+      const more = e.target.closest(".service__more");
+      if (!more) return;
+      const open = more.getAttribute("aria-expanded") !== "true";
+      $$("[data-extra]", more.closest(".service")).forEach((li) => (li.hidden = !open));
+      more.setAttribute("aria-expanded", String(open));
+      more.textContent = open ? "Ver menos" : `+ ${more.dataset.more} más`;
+    });
 
     const filters = $$(".filter");
     filters.forEach((btn) =>
@@ -267,6 +285,11 @@
     wa.href = waLink("Hola Ana Laura, me gustaría pedir información sobre la terapia.");
     if (S.telefonoVisible) wa.textContent = S.telefonoVisible;
     $("#wa-float").href = waLink("Hola Ana Laura, me gustaría pedir información.");
+    $$(".js-wa").forEach((a) => {
+      a.href = waLink(a.dataset.msg || "");
+      a.target = "_blank";
+      a.rel = "noopener";
+    });
 
     if (S.email) {
       $("#c-email-row").hidden = false;
