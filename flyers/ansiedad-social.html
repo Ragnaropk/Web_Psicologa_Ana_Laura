@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8" />
+<title>Ansiedad social · Flyer</title>
+<!-- Fuente del flyer (1080 × 1350). Se exporta a PNG con un navegador a escala 2×. -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #fbf6ee; --paper: #fffdf9; --ink: #33243f; --soft: #6a5a73; --plum: #4a1f5c;
+    --violet: #7b4bb0; --magenta: #d23c86; --coral: #e0573f; --orange: #f29a3b; --teal: #1e9c93; --green: #6baf4a;
+    --line: #e8dccd;
+    --rainbow: linear-gradient(90deg, var(--violet), var(--magenta) 30%, var(--orange) 55%, var(--teal) 80%, var(--green));
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; }
+  body { background: var(--cream); font-family: "DM Sans", sans-serif; color: var(--ink); }
+
+  .flyer { position: relative; width: 1080px; height: 1350px; overflow: hidden; padding: 96px 96px 0; display: flex; flex-direction: column; }
+
+  /* Lavados de acuarela muy suaves */
+  .wash { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .42; }
+  .wash--a { width: 560px; height: 560px; right: -240px; top: -200px; background: radial-gradient(circle, #e88fb3, #f3b28f 50%, transparent 72%); }
+  .wash--b { width: 520px; height: 520px; left: -260px; bottom: 120px; background: radial-gradient(circle, #6cc3b5, #a9d48a 50%, transparent 72%); }
+
+  .eyebrow { position: relative; font-family: "Cinzel", serif; font-size: 19px; letter-spacing: .32em; color: var(--teal); display: flex; align-items: center; gap: 18px; }
+  .eyebrow::before { content: ""; width: 48px; height: 3px; border-radius: 3px; background: var(--rainbow); }
+
+  h1 { position: relative; margin-top: 48px; line-height: .9; }
+  h1 .a { display: block; font-family: "Cinzel", serif; font-weight: 500; font-size: 118px; color: var(--plum); letter-spacing: .01em; }
+  h1 .b { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 500; font-size: 138px; color: var(--coral); margin-top: -6px; padding-left: 6px; }
+
+  .lead { position: relative; margin-top: 34px; max-width: 700px; font-family: "Cormorant Garamond", serif; font-size: 40px; line-height: 1.22; color: var(--ink); }
+  .lead em { color: var(--plum); }
+
+  /* Ilustración mínima: miradas alrededor, una voz que late */
+  .art { position: absolute; right: 92px; top: 330px; width: 250px; height: 250px; }
+
+  .points { position: relative; margin-top: 78px; list-style: none; display: grid; gap: 34px; max-width: 760px; }
+  .points li { display: grid; grid-template-columns: 64px 1fr; align-items: baseline; }
+  .points .n { font-family: "Cinzel", serif; font-size: 22px; letter-spacing: .1em; color: var(--teal); }
+  .points strong { display: block; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 38px; color: var(--plum); line-height: 1.1; }
+  .points span.t { display: block; margin-top: 4px; font-size: 23px; color: var(--soft); line-height: 1.4; }
+
+  .quote { position: relative; margin-top: auto; margin-bottom: 268px; display: flex; align-items: center; gap: 22px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 36px; color: var(--coral); }
+  .quote svg { width: 150px; height: 40px; flex: none; }
+
+  footer {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 200px; padding: 0 80px;
+    display: flex; align-items: center; gap: 26px; background: var(--paper);
+  }
+  footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--rainbow); }
+  .logo { width: 132px; height: 132px; border-radius: 50%; flex: none; position: relative; box-shadow: 0 10px 30px -14px rgba(74,31,92,.45); }
+  .logo img { width: 100%; height: 100%; border-radius: 50%; display: block; }
+  .logo::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; padding: 3px;
+    background: conic-gradient(from 200deg, var(--violet), var(--magenta), var(--orange), var(--green), var(--teal), var(--violet));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+  .who { flex: 1; }
+  .who .name { font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 34px; white-space: nowrap; color: var(--plum); line-height: 1.05; }
+  .who .role { margin-top: 6px; font-size: 19px; color: var(--soft); }
+  .who .place { margin-top: 4px; font-size: 19px; color: var(--soft); }
+  .contact { text-align: right; }
+  .contact .label { font-family: "Cinzel", serif; font-size: 15px; letter-spacing: .22em; color: var(--teal); }
+  .contact .phone { margin-top: 6px; display: flex; align-items: center; gap: 10px; justify-content: flex-end; font-size: 31px; white-space: nowrap; font-weight: 700; color: var(--plum); letter-spacing: .01em; }
+  .contact .phone svg { width: 34px; height: 34px; }
+</style>
+</head>
+<body>
+  <div class="flyer">
+    <div class="wash wash--a"></div>
+    <div class="wash wash--b"></div>
+
+    <p class="eyebrow">TERAPIA DEL PULSO DE ORIGEN VITAL</p>
+
+    <h1><span class="a">Ansiedad</span><span class="b">social</span></h1>
+
+    <p class="lead">No es timidez. Es miedo a ser observado, <em>evaluado o juzgado.</em></p>
+
+    <svg class="art" viewBox="0 0 250 250" aria-hidden="true">
+      <defs>
+        <linearGradient id="rb" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#7B4BB0"/><stop offset=".3" stop-color="#D23C86"/>
+          <stop offset=".55" stop-color="#F29A3B"/><stop offset=".8" stop-color="#1E9C93"/><stop offset="1" stop-color="#6BAF4A"/>
+        </linearGradient>
+      </defs>
+      <!-- miradas -->
+      <g fill="none" stroke="#c9b9d3" stroke-width="2.5">
+        <circle cx="125" cy="22" r="14"/><circle cx="210" cy="62" r="14"/><circle cx="228" cy="150" r="14"/>
+        <circle cx="178" cy="222" r="14"/><circle cx="72" cy="222" r="14"/><circle cx="22" cy="150" r="14"/><circle cx="40" cy="62" r="14"/>
+      </g>
+      <!-- tu voz -->
+      <circle cx="125" cy="125" r="58" fill="#fffdf9" stroke="url(#rb)" stroke-width="4"/>
+      <path d="M78 127h22l7-14 9 28 10-38 10 34 7-10h29" fill="none" stroke="url(#rb)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <ul class="points">
+      <li><span class="n">01</span><div><strong>Comprender el origen del miedo</strong><span class="t">Las voces y etiquetas que aprendiste sobre ti.</span></div></li>
+      <li><span class="n">02</span><div><strong>Regular la ansiedad en tu cuerpo</strong><span class="t">Herramientas prácticas para el momento difícil.</span></div></li>
+      <li><span class="n">03</span><div><strong>Recuperar tu voz</strong><span class="t">Vincularte con más seguridad y autenticidad.</span></div></li>
+    </ul>
+
+    <p class="quote">
+      <svg viewBox="0 0 150 40" aria-hidden="true"><path d="M2 20h56l7-14 9 28 9-32 9 28 6-10h50" fill="none" stroke="url(#rb)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Tu voz también merece espacio.
+    </p>
+
+    <footer>
+      <div class="logo"><img src="logo.png" alt="" /></div>
+      <div class="who">
+        <p class="name">Psic. Ana Laura Alemán Chávez</p>
+        <p class="role">Psicóloga clínica · Céd. Prof. 11069167</p>
+        <p class="place">Atizapán de Zaragoza · Presencial y online</p>
+      </div>
+      <div class="contact">
+        <p class="label">CITAS</p>
+        <p class="phone">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25D366" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3Zm5.8 15.7c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4Z"/></svg>
+          56 3779 9686
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
